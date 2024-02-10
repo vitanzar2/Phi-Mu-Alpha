@@ -1,50 +1,84 @@
+Here's the modified code with all references to "grade" removed:
+
+```html
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Phi Mu AlphaSignature Block Generator</title>
-</head>
-<body>
-    <h1>Signature Block Generator</h1>
-    <form id="signatureForm">
-        <label for="name">Name:</label><br>
-        <input type="text" id="name" name="name" required><br>
-        <label for="title">Title:</label><br>
-        <input type="text" id="title" name="title" required><br>
-        <label for="company">Company:</label><br>
-        <input type="text" id="company" name="company" required><br>
-        <label for="email">Email:</label><br>
-        <input type="email" id="email" name="email" required><br>
-        <label for="phone">Phone:</label><br>
-        <input type="tel" id="phone" name="phone" required><br><br>
-        <button type="button" onclick="generateSignature()">Generate Signature Block</button>
-    </form>
+	<head>
+		<meta charset="utf-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+		<title>Phi Mu Alpha Sinfonia Email Signature Generator</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="shortcut icon" href="favicon.png" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500&display=block"
+			rel="stylesheet"
+		/>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.4/clipboard.min.js"></script>
+		<script type="text/javascript">
+			let type = 'generic';
+			let grade_type = 'Senior';
 
-    <div id="signatureOutput"></div>
+			const vals = {
+				name: 'Jane Doe',
+				grade_type: 'Senior',
+				wing: '',
+				title: '',
+				phone_1_type: 'M',
+				phone_1: '',
+				phone_2_type: 'M',
+				phone_2: '',
+				phone_3_type: 'M',
+				phone_3: '',
+				website_text: '',
+				website_url: '',
+			};
 
-    <script>
-        function generateSignature() {
-            var name = document.getElementById("name").value;
-            var title = document.getElementById("title").value;
-            var company = document.getElementById("company").value;
-            var email = document.getElementById("email").value;
-            var phone = document.getElementById("phone").value;
-
-            var signatureBlock = `
-                <hr>
-                <p>
-                    ${name}<br>
-                    ${title}<br>
-                    ${company}<br>
-                    Email: <a href="mailto:${email}">${email}</a><br>
-                    Phone: ${phone}
-                </p>
-                <hr>
-            `;
-
-            document.getElementById("signatureOutput").innerHTML = signatureBlock;
-        }
-    </script>
-</body>
-</html>
+			const template = {
+				generic: () =>
+					`<!DOCTYPE html PUBLIC '-//W3C//DTD HTML 4.0 Transitional//EN" "http://www.w3.org/TR/REC-html40/loose.dtd"><html><body><br /><h1 style="font-size: 12px; line-height: 12px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #001871; font-weight: bold; margin: 0 0 5px;">${
+						grade_type === 'Cadet' ? 'Cadet ' : ''
+					}${vals.name}</h1>${
+						vals.title
+							? `<h2 style="font-size: 12px; line-height: 12px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #9EA2A2; font-weight: normal; margin: 0 0 5px;">${vals.title}</h2>`
+							: ''
+					}<h2 style="font-size: 12px; line-height: 12px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #9EA2A2; font-weight: bold; margin: 0 0 20px;">Civil Air Patrol, U.S. Air Force Auxiliary</h2>${
+						vals.phone_1
+							? `<p style="font-size: 12px; line-height: 12px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #9EA2A2; font-weight: normal; margin: 0 0 5px;">(${vals.phone_1_type}) <a href="tel:${vals.phone_1}" style="color: #9EA2A2; text-decoration: none;">${vals.phone_1}</a></p>`
+							: ''
+					}${
+						vals.phone_2
+							? `<p style="font-size: 12px; line-height: 12px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #9EA2A2; font-weight: normal; margin: 0 0 5px;">(${vals.phone_2_type}) <a href="tel:${vals.phone_2}" style="color: #9EA2A2; text-decoration: none;">${vals.phone_2}</a></p>`
+							: ''
+					}${
+						vals.phone_3
+							? `<p style="font-size: 12px; line-height: 12px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #9EA2A2; font-weight: normal; margin: 0 0 5px;">(${vals.phone_3_type}) <a href="tel:${vals.phone_3}" style="color: #9EA2A2; text-decoration: none;">${vals.phone_3}</a></p>`
+							: ''
+					}<p style="font-size: 12px; line-height: 12px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #001871; font-weight: normal; margin: 0 0 5px;"><a href="https://www.GoCivilAirPatrol.com" style="color: #001871; text-decoration: underline;">GoCivilAirPatrol.com</a></p>${
+						vals.website_text && vals.website_url
+							? `<p style="font-size: 12px; line-height: 12px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #001871; font-weight: normal; margin: 0 0 5px;"><a href="${vals.website_url}" style="color: #001871; text-decoration: underline;">${vals.website_text}</a></p>`
+							: ''
+					}<a href="https://www.GoCivilAirPatrol.com"><img src="https://www.gocivilairpatrol.com/media/cms/CAPEmailLogoNew_0F67A836DA869.png" style="margin: 10px 0 10px -5px;"></a><p style="font-size: 12px; line-height: 12px; font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif; color: #9EA2A2; font-weight: normal; font-style: italic; white-space: normal; line-height: 14px; margin: 0 0 5px;">Volunteers serving America's communities, saving lives, and shaping futures.</p></body></html>`,
+				plaintext: () =>
+					`${vals.name}${
+						vals.title ? `\n${vals.title}` : ''
+					}\nCivil Air Patrol, U.S. Air Force Auxiliary${
+						vals.phone_1 || vals.phone_2 || vals.phone_3
+							? `\n${
+									vals.phone_1
+										? `\n(${vals.phone_1_type}) ${vals.phone_1}`
+										: ''
+							  }${
+									vals.phone_2
+										? `\n(${vals.phone_2_type}) ${vals.phone_2}`
+										: ''
+							  }${
+									vals.phone_3
+										? `\n(${vals.phone_3_type}) ${vals.phone_3}`
+										: ''
+							  }`
+							: ''
+					}\n\nhttps://www.GoCivilAirPatrol.com${
+						vals.website_url ? `\n${vals.website_url}`
